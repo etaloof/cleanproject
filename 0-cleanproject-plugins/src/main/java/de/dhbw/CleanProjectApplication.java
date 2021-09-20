@@ -1,7 +1,7 @@
 package de.dhbw;
 
-import de.dhbw.cleanproject.domain.book.Book;
-import de.dhbw.cleanproject.domain.book.BookRepository;
+import de.dhbw.cleanproject.domain.stellenangebot.Stellenangebot;
+import de.dhbw.cleanproject.domain.stellenangebot.StellenangebotRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,10 +17,20 @@ public class CleanProjectApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(BookRepository repository) {
+    public CommandLineRunner demo(StellenangebotRepository repository) {
         return (args) -> {
-            repository.save(new Book("978-3-86680-192-9", "Der Winterkönig", "Bernard Cornwell", LocalDate.of(1996, 01, 01)));
+            repository.save(getStellenangebot(1L));
+            repository.save(getStellenangebot(2L));
+            repository.save(getStellenangebot(3L));
         };
+    }
+
+    private static Stellenangebot getStellenangebot(long l) {
+        String titel = "Der Winterkönig";
+        String url = "https://job.unternehmen/" + l;
+        String beschreibung = "Bernard Cornwell";
+        LocalDate of = LocalDate.of(1996, 1, 1);
+        return new Stellenangebot(l, titel, beschreibung, url, of, of.plusMonths(3));
     }
 
 }
