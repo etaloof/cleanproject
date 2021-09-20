@@ -1,7 +1,8 @@
 package de.dhbw.cleanproject.domain.stellenangebot;
 
+import de.dhbw.cleanproject.domain.gültigkeitszeitraum.Gültigkeitszeitraum;
+
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "stellenangebot")
@@ -21,23 +22,19 @@ public class Stellenangebot {
     @Column(name = "url")
     private String url;
 
-    @Column(name = "gültig_ab")
-    private LocalDate gültigAb;
-
-    @Column(name = "gültig_bis")
-    private LocalDate gültigBis;
+    @Column(name = "gültigkeitszeitraum")
+    private Gültigkeitszeitraum gültigkeitszeitraum;
 
     private Stellenangebot() {
         //default constructor for JPA
     }
 
-    public Stellenangebot(Long id, String titel, String beschreibung, String url, LocalDate gültigAb, LocalDate gültigBis) {
+    public Stellenangebot(Long id, String titel, String beschreibung, String url, Gültigkeitszeitraum gültigkeitszeitraum) {
         this.id = id;
         this.titel = titel;
         this.beschreibung = beschreibung;
         this.url = url;
-        this.gültigAb = gültigAb;
-        this.gültigBis = gültigBis;
+        this.gültigkeitszeitraum = gültigkeitszeitraum;
     }
 
     public Long getId() {
@@ -56,11 +53,7 @@ public class Stellenangebot {
         return url;
     }
 
-    public LocalDate getGültigAb() {
-        return gültigAb;
-    }
-
-    public LocalDate getGültigBis() {
-        return gültigBis;
+    public Gültigkeitszeitraum getGültigkeitszeitraum() {
+        return gültigkeitszeitraum;
     }
 }

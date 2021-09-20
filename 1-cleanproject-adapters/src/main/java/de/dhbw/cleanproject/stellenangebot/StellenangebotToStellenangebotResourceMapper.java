@@ -19,7 +19,8 @@ public class StellenangebotToStellenangebotResourceMapper implements Function<St
                 stellenangebot.getTitel(),
                 stellenangebot.getBeschreibung(),
                 stellenangebot.getUrl(),
-                stellenangebot.getGültigAb(),
-                stellenangebot.getGültigBis());
+                stellenangebot.getGültigkeitszeitraum().getGültigAb(),
+                stellenangebot.getGültigkeitszeitraum().getGültigBis()
+        );
     }
 }

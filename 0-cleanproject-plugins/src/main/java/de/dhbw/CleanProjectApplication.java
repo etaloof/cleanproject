@@ -1,5 +1,6 @@
 package de.dhbw;
 
+import de.dhbw.cleanproject.domain.gültigkeitszeitraum.Gültigkeitszeitraum;
 import de.dhbw.cleanproject.domain.stellenangebot.Stellenangebot;
 import de.dhbw.cleanproject.domain.stellenangebot.StellenangebotRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -30,7 +31,8 @@ public class CleanProjectApplication {
         String url = "https://job.unternehmen/" + l;
         String beschreibung = "Bernard Cornwell";
         LocalDate of = LocalDate.of(1996, 1, 1);
-        return new Stellenangebot(l, titel, beschreibung, url, of, of.plusMonths(3));
+        Gültigkeitszeitraum gültigkeitszeitraum = new Gültigkeitszeitraum(of, of.plusMonths(3));
+        return new Stellenangebot(l, titel, beschreibung, url, gültigkeitszeitraum);
     }
 
 }
