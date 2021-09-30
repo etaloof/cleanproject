@@ -25,9 +25,13 @@ public final class Gültigkeitszeitraum {
     public Gültigkeitszeitraum() {
     }
 
-    public Gültigkeitszeitraum(LocalDate gültigAb, LocalDate gültigBis) {
+    public Gültigkeitszeitraum(LocalDate gültigAb, LocalDate gültigBis) throws IllegalArgumentException {
         this.gültigAb = gültigAb;
         this.gültigBis = gültigBis;
+
+        if (gültigAb.isAfter(gültigBis)) {
+            throw new IllegalArgumentException("gültigAb can not be before gültigBis");
+        }
     }
 
     @Override
