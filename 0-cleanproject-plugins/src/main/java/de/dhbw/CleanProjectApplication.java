@@ -1,8 +1,10 @@
 package de.dhbw;
 
 import de.dhbw.cleanproject.domain.gültigkeitszeitraum.Gültigkeitszeitraum;
+import de.dhbw.cleanproject.domain.stellenangebot.arbeitszeit.Arbeitszeit;
 import de.dhbw.cleanproject.domain.stellenangebot.Stellenangebot;
 import de.dhbw.cleanproject.domain.stellenangebot.StellenangebotRepository;
+import de.dhbw.cleanproject.domain.unternehmen.Unternehmen;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,7 +34,11 @@ public class CleanProjectApplication {
         String beschreibung = "Bernard Cornwell";
         LocalDate of = LocalDate.of(1996, 1, 1);
         Gültigkeitszeitraum gültigkeitszeitraum = new Gültigkeitszeitraum(of, of.plusMonths(3));
-        return new Stellenangebot(l, titel, beschreibung, url, gültigkeitszeitraum);
+        Arbeitszeit arbeitszeit = Arbeitszeit.VOLLZEIT;
+        Long berufserfahrung = 3L;
+        Unternehmen unternehmen = new Unternehmen("DHBW");
+        String branche = "branche";
+        return new Stellenangebot(l, titel, beschreibung, url, gültigkeitszeitraum, arbeitszeit, berufserfahrung, unternehmen, branche);
     }
 
 }
