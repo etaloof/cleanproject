@@ -1,5 +1,6 @@
  package de.dhbw.cleanproject.application.stellenangebot;
 
+import de.dhbw.cleanproject.application.stellenangebot.filter.ContainsBeschreibungsTextStellenangebotFilter;
 import de.dhbw.cleanproject.application.stellenangebot.filter.ListStellenangebotFilter;
 import de.dhbw.cleanproject.application.stellenangebot.filter.NoopStellenangebotFilter;
 import de.dhbw.cleanproject.application.stellenangebot.filter.IsGültigStellenangebotFilter;
@@ -48,6 +49,18 @@ class StellenangebotApplicationServiceTest {
         String titel = "Der Winterkönig";
         String url = "https://job.unternehmen/" + l;
         String beschreibung = "Bernard Cornwell";
+        Arbeitszeit arbeitszeit = Arbeitszeit.VOLLZEIT;
+        Long berufserfahrung = 3L;
+        Unternehmen unternehmen = new Unternehmen("DHBW");
+        String branche = "branche";
+        return new Stellenangebot(l, titel, beschreibung, url, gültigkeitszeitraum, arbeitszeit, berufserfahrung, unternehmen, branche);
+    }
+
+    private static Stellenangebot getStellenangebotWithBeschreibung(long l, String beschreibung) {
+        String titel = "Der Winterkönig";
+        String url = "https://job.unternehmen/" + l;
+        LocalDate of = LocalDate.of(1996, 1, 1);
+        Gültigkeitszeitraum gültigkeitszeitraum = new Gültigkeitszeitraum(of, of.plusMonths(3));
         Arbeitszeit arbeitszeit = Arbeitszeit.VOLLZEIT;
         Long berufserfahrung = 3L;
         Unternehmen unternehmen = new Unternehmen("DHBW");
@@ -107,4 +120,21 @@ class StellenangebotApplicationServiceTest {
                 new IsGültigStellenangebotFilter(now.plusDays(1))
         ));
     }
+
+    @Test
+    void findAllStellenangeboteSearchBeschreibung() {
+        Stellenangebot invalid = getStellenangebotWithBeschreibung(0, "Corn Corn");
+        Stellenangebot valid = getStellenangebot(1);
+        List<Stellenangebot> stellenangebots = Arrays.asList(invalid, valid);
+        MockRespository repository = new MockRespository(stellenangebots);
+
+        StellenangebotApplicationService stellenangebotApplicationService =
+                new StellenangebotApplicationService(repository);
+
+        assertEquals(Collections.singletonList(valid), stellenangebotApplicationService.findAllStellenangebote(
+                new ContainsBeschreibungsTextStellenangebotFilter("well")
+        ));
+    }
+
+
 }
