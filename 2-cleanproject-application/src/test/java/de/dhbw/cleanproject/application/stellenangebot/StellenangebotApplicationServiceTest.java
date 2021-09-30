@@ -1,5 +1,7 @@
  package de.dhbw.cleanproject.application.stellenangebot;
 
+import de.dhbw.cleanproject.application.stellenangebot.filter.ListStellenangebotFilter;
+import de.dhbw.cleanproject.application.stellenangebot.filter.NoopStellenangebotFilter;
 import de.dhbw.cleanproject.domain.gültigkeitszeitraum.Gültigkeitszeitraum;
 import de.dhbw.cleanproject.domain.stellenangebot.arbeitszeit.Arbeitszeit;
 import de.dhbw.cleanproject.domain.stellenangebot.Stellenangebot;
@@ -47,7 +49,7 @@ class StellenangebotApplicationServiceTest {
     }
 
     @Test
-    void findAllStellenangebote() {
+    void findAllStellenangeboteFilterNoop() {
         List<Stellenangebot> stellenangebots = new ArrayList<>();
         stellenangebots.add(getStellenangebot(0));
         stellenangebots.add(getStellenangebot(1));
@@ -56,6 +58,29 @@ class StellenangebotApplicationServiceTest {
         StellenangebotApplicationService stellenangebotApplicationService =
                 new StellenangebotApplicationService(repository);
 
-        assertEquals(stellenangebots, stellenangebotApplicationService.findAllStellenangebote());
+        assertEquals(stellenangebots, stellenangebotApplicationService.findAllStellenangebote(
+                new NoopStellenangebotFilter()
+        ));
+    }
+
+    @Test
+    void findAllStellenangeboteFilterListNoop() {
+        List<Stellenangebot> stellenangebots = new ArrayList<>();
+        stellenangebots.add(getStellenangebot(0));
+        stellenangebots.add(getStellenangebot(1));
+        MockRespository repository = new MockRespository(new ArrayList<>(stellenangebots));
+
+        StellenangebotApplicationService stellenangebotApplicationService =
+                new StellenangebotApplicationService(repository);
+
+        assertEquals(stellenangebots, stellenangebotApplicationService.findAllStellenangebote(
+                new ListStellenangebotFilter(
+                        new NoopStellenangebotFilter(),
+                        new NoopStellenangebotFilter(),
+                        new ListStellenangebotFilter(
+                                new NoopStellenangebotFilter()
+                        )
+                )
+        ));
     }
 }
