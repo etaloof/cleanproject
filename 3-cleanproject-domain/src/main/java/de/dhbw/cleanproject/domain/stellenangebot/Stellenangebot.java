@@ -36,7 +36,7 @@ public class Stellenangebot {
     @Column(name = "berufserfahrung")
     private Long berufserfahrung;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Unternehmen unternehmen;
 
     @Column(name = "branche")
