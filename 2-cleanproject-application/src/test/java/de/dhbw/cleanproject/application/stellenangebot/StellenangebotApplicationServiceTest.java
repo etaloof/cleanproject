@@ -40,6 +40,18 @@ public class StellenangebotApplicationServiceTest {
         return new Stellenangebot(l, titel, beschreibung, url, gültigkeitszeitraum, arbeitszeit, berufserfahrung, unternehmen, branche);
     }
 
+    static Stellenangebot getStellenangebotWithArbeitszeit(long l, Arbeitszeit arbeitszeit) {
+        String titel = "Der Winterkönig";
+        String url = "https://job.unternehmen/" + l;
+        String beschreibung = "Bernard Cornwell";
+        LocalDate of = LocalDate.of(1996, 1, 1);
+        Gültigkeitszeitraum gültigkeitszeitraum = new Gültigkeitszeitraum(of, of.plusMonths(3));
+        Long berufserfahrung = 3L;
+        Unternehmen unternehmen = new Unternehmen("DHBW");
+        String branche = "branche";
+        return new Stellenangebot(l, titel, beschreibung, url, gültigkeitszeitraum, arbeitszeit, berufserfahrung, unternehmen, branche);
+    }
+
     static List<Stellenangebot> getStellenangebotList() {
         List<Stellenangebot> stellenangebots = new ArrayList<>();
         stellenangebots.add(StellenangebotApplicationServiceTest.getStellenangebotWithBeschreibung(0, "B. Corn"));

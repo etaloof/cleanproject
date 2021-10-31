@@ -1,9 +1,6 @@
  package de.dhbw.cleanproject.application.stellenangebot;
 
-import de.dhbw.cleanproject.application.stellenangebot.filter.ContainsBeschreibungsTextStellenangebotFilter;
-import de.dhbw.cleanproject.application.stellenangebot.filter.ListStellenangebotFilter;
-import de.dhbw.cleanproject.application.stellenangebot.filter.NoopStellenangebotFilter;
-import de.dhbw.cleanproject.application.stellenangebot.filter.IsGültigStellenangebotFilter;
+import de.dhbw.cleanproject.application.stellenangebot.filter.*;
 import de.dhbw.cleanproject.domain.gültigkeitszeitraum.Gültigkeitszeitraum;
 import de.dhbw.cleanproject.domain.stellenangebot.arbeitszeit.Arbeitszeit;
 import de.dhbw.cleanproject.domain.stellenangebot.Stellenangebot;
@@ -16,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -106,5 +104,21 @@ class StellenangebotApplicationServiceTestFilter extends StellenangebotApplicati
         ));
     }
 
+    @Test
+    void findAllStellenangeboteFilterArbeitszeit() {
+        Stellenangebot invalid = getStellenangebotWithArbeitszeit(4, Arbeitszeit.TEILZEIT);
+        Stellenangebot invalid2 = getStellenangebotWithArbeitszeit(5, Arbeitszeit.TEILZEIT);
+        List<Stellenangebot> stellenangebots = getStellenangebotList();
+        List<Stellenangebot> stellenangebotsWithInvalid = new ArrayList<>(stellenangebots);
+        stellenangebotsWithInvalid.add(1, invalid2);
+        stellenangebotsWithInvalid.add(3, invalid);
+        MockRespository repository = new MockRespository(stellenangebotsWithInvalid);
 
+        StellenangebotApplicationService stellenangebotApplicationService =
+                new StellenangebotApplicationService(repository);
+
+        assertEquals(stellenangebots, stellenangebotApplicationService.findAllStellenangebote(
+                new ArbeitszeitMatchesStellenangebotFilter(Arbeitszeit.VOLLZEIT)
+        ));
+    }
 }
