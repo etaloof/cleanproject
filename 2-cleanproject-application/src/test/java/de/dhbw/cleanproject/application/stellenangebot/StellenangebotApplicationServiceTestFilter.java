@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class StellenangebotApplicationServiceTest {
+class StellenangebotApplicationServiceTestFilter {
     static class MockRespository implements StellenangebotRepository {
         private final List<Stellenangebot> list;
 
