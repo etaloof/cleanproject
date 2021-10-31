@@ -19,7 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class StellenangebotApplicationServiceTestFilter {
+class StellenangebotApplicationServiceTestFilter extends StellenangebotApplicationServiceTest {
     static class MockRespository implements StellenangebotRepository {
         private final List<Stellenangebot> list;
 
@@ -36,36 +36,6 @@ class StellenangebotApplicationServiceTestFilter {
         public Stellenangebot save(Stellenangebot stellenangebot) {
             return null;
         }
-    }
-
-
-    private static Stellenangebot getStellenangebot(long l) {
-        LocalDate of = LocalDate.of(1996, 1, 1);
-        Gültigkeitszeitraum gültigkeitszeitraum = new Gültigkeitszeitraum(of, of.plusMonths(3));
-        return getStellenangebot(l, gültigkeitszeitraum);
-    }
-
-    private static Stellenangebot getStellenangebot(long l, Gültigkeitszeitraum gültigkeitszeitraum) {
-        String titel = "Der Winterkönig";
-        String url = "https://job.unternehmen/" + l;
-        String beschreibung = "Bernard Cornwell";
-        Arbeitszeit arbeitszeit = Arbeitszeit.VOLLZEIT;
-        Long berufserfahrung = 3L;
-        Unternehmen unternehmen = new Unternehmen("DHBW");
-        String branche = "branche";
-        return new Stellenangebot(l, titel, beschreibung, url, gültigkeitszeitraum, arbeitszeit, berufserfahrung, unternehmen, branche);
-    }
-
-    private static Stellenangebot getStellenangebotWithBeschreibung(long l, String beschreibung) {
-        String titel = "Der Winterkönig";
-        String url = "https://job.unternehmen/" + l;
-        LocalDate of = LocalDate.of(1996, 1, 1);
-        Gültigkeitszeitraum gültigkeitszeitraum = new Gültigkeitszeitraum(of, of.plusMonths(3));
-        Arbeitszeit arbeitszeit = Arbeitszeit.VOLLZEIT;
-        Long berufserfahrung = 3L;
-        Unternehmen unternehmen = new Unternehmen("DHBW");
-        String branche = "branche";
-        return new Stellenangebot(l, titel, beschreibung, url, gültigkeitszeitraum, arbeitszeit, berufserfahrung, unternehmen, branche);
     }
 
     @Test
