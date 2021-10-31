@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/api/stellenangebot")
 public class StellenangebotController {
 
-    private StellenangebotApplicationService stellenangebotApplicationService;
+    private final StellenangebotApplicationService stellenangebotApplicationService;
 
-    private StellenangebotToStellenangebotResourceMapper stellenangebotToStellenangebotResourceMapper;
+    private final StellenangebotToStellenangebotResourceMapper stellenangebotToStellenangebotResourceMapper;
 
     @Autowired
     public StellenangebotController(StellenangebotApplicationService stellenangebotApplicationService, StellenangebotToStellenangebotResourceMapper stellenangebotToStellenangebotResourceMapper) {

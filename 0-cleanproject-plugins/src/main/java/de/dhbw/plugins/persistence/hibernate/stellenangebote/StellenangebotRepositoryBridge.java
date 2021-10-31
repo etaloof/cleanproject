@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public class StellenangebotRepositoryBridge implements StellenangebotRepository {
 
-    private SpringDataStellenangebotRepository springDataStellenangebotRepository;
+    private final SpringDataStellenangebotRepository springDataStellenangebotRepository;
 
     @Autowired
     public StellenangebotRepositoryBridge(SpringDataStellenangebotRepository springDataStellenangebotRepository) {

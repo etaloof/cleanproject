@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class StellenangebotApplicationService {
 
-    private StellenangebotRepository stellenangebotRepository;
+    private final StellenangebotRepository stellenangebotRepository;
 
     @Autowired
     public StellenangebotApplicationService(StellenangebotRepository stellenangebotRepository) {

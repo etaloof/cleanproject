@@ -4,17 +4,17 @@ import java.time.LocalDate;
 
 public class StellenangebotResource {
 
-    private Long id;
+    private final Long id;
 
-    private String titel;
+    private final String titel;
 
-    private String beschreibung;
+    private final String beschreibung;
 
-    private String url;
+    private final String url;
 
-    private LocalDate gültigAb;
+    private final LocalDate gültigAb;
 
-    private LocalDate gültigBis;
+    private final LocalDate gültigBis;
 
     public StellenangebotResource(Long id, String titel, String beschreibung, String url, LocalDate gültigAb, LocalDate gültigBis) {
         this.id = id;
